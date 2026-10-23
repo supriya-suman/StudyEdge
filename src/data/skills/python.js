@@ -1,0 +1,116 @@
+// Skill track: Python
+export default {
+  id: 'python', name: 'Python', short: 'Python', order: 4, icon: '🐍', color: '#facc15', lang: 'python',
+  desc: 'Python from first program to advanced features (3.13/3.14), data libraries and interview favourites.',
+  units: [
+    { name: 'Basics', terms: [
+      ['what-is-python', 'What is Python', 'High-level, interpreted, dynamically typed language that reads like English.'],
+      ['install-run', 'Installing & Running Python', 'python.org / python3 command, REPL, .py scripts, VS Code.'],
+      ['syntax', 'Syntax, Indentation & Comments', 'Indentation defines blocks; # comments; docstrings.'],
+      ['variables', 'Variables & Dynamic Typing', 'Names point to objects; type is decided at runtime.'],
+      ['data-types', 'Built-in Data Types', 'int, float, complex, bool, str, list, tuple, set, dict, NoneType.'],
+      ['type-conversion-py', 'Type Conversion', 'int(), float(), str(), list(), bool() conversions.'],
+      ['input-output', 'input() & print()', 'Read text from the user; print with sep and end.'],
+      ['operators', 'Operators', 'Arithmetic (//, %, **), comparison, logical, bitwise, identity (is), membership (in).'],
+      ['f-strings', 'f-strings & Formatting', 'f"{name} scored {marks:.2f}".'],
+      ['conditionals', 'if / elif / else', 'Branching on conditions; truthy and falsy values.'],
+      ['match', 'match-case (Structural Pattern Matching)', 'Python 3.10+ switch-like matching on values and shapes.'],
+      ['loops', 'for, while, range()', 'Iterate sequences; loop with break, continue, else.'],
+      ['walrus', 'Walrus Operator :=', 'Assign inside an expression (3.8+).'],
+      ['errors', 'Common Errors & Tracebacks', 'SyntaxError, NameError, TypeError, IndexError, KeyError.']
+    ] },
+    { name: 'Data Structures', terms: [
+      ['strings', 'Strings & Methods', 'Immutable text: slicing, split, join, strip, replace, find.'],
+      ['lists', 'Lists', 'Mutable ordered sequences with append, insert, pop, sort.'],
+      ['list-comprehension', 'List / Dict / Set Comprehensions', '[x*x for x in nums if x > 0].'],
+      ['tuples', 'Tuples & Unpacking', 'Immutable sequences; a, b = b, a swaps.'],
+      ['sets', 'Sets & frozenset', 'Unordered unique items; union, intersection.'],
+      ['dicts', 'Dictionaries', 'Key–value maps (insertion-ordered since 3.7).'],
+      ['mutable-immutable', 'Mutable vs Immutable', 'Lists/dicts/sets change in place; int/str/tuple don’t.'],
+      ['slicing', 'Slicing', 'seq[start:stop:step]; s[::-1] reverses.'],
+      ['collections', 'collections Module', 'deque, Counter, defaultdict, namedtuple, OrderedDict.'],
+      ['heapq-bisect', 'heapq & bisect', 'Min-heap operations and binary search on sorted lists.'],
+      ['copy-deepcopy', 'Shallow vs Deep Copy', 'copy.copy vs copy.deepcopy for nested objects.'],
+      ['is-vs-eq', 'is vs ==', 'Identity (same object) vs equality (same value).']
+    ] },
+    { name: 'Functions', terms: [
+      ['functions', 'Defining Functions', 'def name(params): return value.'],
+      ['arguments', 'Arguments: Positional, Keyword, Default', 'Ways to pass values to functions.'],
+      ['args-kwargs', '*args & **kwargs', 'Accept any number of positional / keyword arguments.'],
+      ['keyword-only', 'Keyword-only & Positional-only Parameters', 'def f(a, /, b, *, c).'],
+      ['mutable-default', 'Mutable Default Argument Trap', 'def f(x=[]) shares one list across calls — use None.'],
+      ['scope-legb', 'Scope: LEGB Rule, global, nonlocal', 'Local, Enclosing, Global, Built-in lookup.'],
+      ['lambda', 'Lambda Functions', 'Anonymous one-line functions.'],
+      ['map-filter-reduce', 'map, filter, reduce, zip, enumerate', 'Functional helpers for iteration.'],
+      ['sorted-key', 'sorted() with key', 'sorted(items, key=lambda x: x[1], reverse=True).'],
+      ['closures-py', 'Closures', 'Inner functions remembering outer variables.'],
+      ['decorators', 'Decorators', 'Functions that wrap other functions (@timer, @lru_cache).'],
+      ['recursion-py', 'Recursion & Recursion Limit', 'sys.setrecursionlimit; prefer iteration for deep recursion.'],
+      ['iterators', 'Iterators & Iterables', '__iter__ and __next__; iter() and next().'],
+      ['generators', 'Generators & yield', 'Lazy sequences that produce values on demand.'],
+      ['itertools', 'itertools & functools', 'permutations, combinations, product, accumulate, lru_cache, partial.']
+    ] },
+    { name: 'OOP in Python', terms: [
+      ['classes', 'Classes, __init__ & self', 'Define classes and initialize instances.'],
+      ['class-instance-vars', 'Class vs Instance Attributes', 'Shared vs per-object data.'],
+      ['methods-types', 'Instance, @classmethod, @staticmethod', 'Three kinds of methods.'],
+      ['property', '@property (Getters/Setters)', 'Computed attributes with validation.'],
+      ['inheritance-py', 'Inheritance & super()', 'Reuse parent behaviour.', 'oop.inheritance'],
+      ['dunder', 'Magic / Dunder Methods', '__str__, __repr__, __eq__, __lt__, __add__, __len__, __getitem__.'],
+      ['abc', 'Abstract Base Classes (abc)', 'Enforce methods with @abstractmethod.', 'oop.abstract-class'],
+      ['dataclasses', 'Dataclasses', '@dataclass auto-generates __init__, __repr__, __eq__.'],
+      ['slots', '__slots__', 'Save memory by fixing attributes.'],
+      ['name-mangling', 'Private Attributes & Name Mangling', '_protected and __private conventions.'],
+      ['duck-typing', 'Duck Typing & Protocols', '“If it walks like a duck…” — behaviour over type.'],
+      ['metaclasses', 'Metaclasses', 'Classes that create classes (type).'],
+      ['pickle', 'pickle (Object Persistence)', 'Serialize objects to bytes/files.']
+    ] },
+    { name: 'Files, Errors & Modules', terms: [
+      ['file-io', 'File Handling', 'open() modes, read/write, with-statement.'],
+      ['csv-json', 'CSV & JSON', 'csv and json modules to read and write data.'],
+      ['os-sys', 'os, sys & pathlib', 'Work with files, folders, paths and arguments.'],
+      ['exceptions', 'Exceptions: try / except / else / finally', 'Handle errors gracefully; raise custom exceptions.'],
+      ['context-managers', 'Context Managers', 'with-statement; __enter__/__exit__; contextlib.'],
+      ['modules-packages', 'Modules & Packages', 'import, __init__.py, __name__ == "__main__".'],
+      ['pip-venv', 'pip, venv, uv & Poetry', 'Install packages and isolate project environments.'],
+      ['regex', 'Regular Expressions (re)', 're.search, findall, sub, groups.'],
+      ['datetime', 'datetime & time', 'Dates, times, timedelta, formatting.'],
+      ['logging', 'logging Module', 'Levels and handlers instead of print debugging.']
+    ] },
+    { name: 'Advanced Python', terms: [
+      ['type-hints', 'Type Hints & typing', 'def f(x: int) -> str; list[int], Optional, Union (|).'],
+      ['mypy', 'Static Type Checking (mypy, pyright)', 'Catch type errors before running.'],
+      ['memory-gc', 'Memory Management & Garbage Collection', 'Reference counting + cyclic GC.'],
+      ['gil', 'GIL & Free-threaded Python', 'Global Interpreter Lock; optional no-GIL build officially supported in 3.14.'],
+      ['threading', 'threading', 'Threads for I/O-bound tasks.'],
+      ['multiprocessing', 'multiprocessing', 'Processes for CPU-bound tasks.'],
+      ['asyncio', 'asyncio & async/await', 'Cooperative concurrency for many I/O tasks.'],
+      ['py-versions', 'What’s New: Python 3.12, 3.13, 3.14', 'Better errors, f-string upgrades, new REPL, free-threading, JIT, t-strings.'],
+      ['t-strings', 'Template Strings (t-strings, 3.14)', 't"Hello {name}" builds a Template object for safe processing.'],
+      ['pythonic', 'Pythonic Code & PEP 8', 'Idiomatic style: comprehensions, enumerate, unpacking.'],
+      ['testing-py', 'Testing with pytest', 'Write test_ functions with assert.'],
+      ['performance-py', 'Performance Tips', 'Use built-ins, sets for membership, avoid repeated string +=.']
+    ] },
+    { name: 'Data & AI Libraries', terms: [
+      ['numpy', 'NumPy', 'Fast n-dimensional arrays and vectorized maths.'],
+      ['pandas', 'Pandas', 'DataFrames for loading, cleaning and analyzing tables.'],
+      ['matplotlib', 'Matplotlib', 'Plot line, bar, scatter and histogram charts.'],
+      ['seaborn-py', 'Seaborn', 'Statistical plots with good defaults.'],
+      ['scipy', 'SciPy', 'Scientific computing: optimize, integrate, stats, linalg.'],
+      ['sklearn-py', 'scikit-learn', 'Classic ML models and pipelines.', 'aiml.sklearn'],
+      ['jupyter', 'Jupyter Notebooks & IPython', 'Interactive cells mixing code, output and notes.'],
+      ['requests', 'requests & APIs', 'Call web APIs: requests.get(url).json().'],
+      ['fastapi-flask', 'FastAPI & Flask', 'Build web APIs in Python.'],
+      ['django', 'Django (Intro)', 'Batteries-included web framework.'],
+      ['streamlit', 'Streamlit & Gradio', 'Turn Python scripts into web apps for ML demos.']
+    ] },
+    { name: 'Interview Favourites', terms: [
+      ['py-interview-output', 'Output Prediction Questions', 'Mutable defaults, late binding closures, integer caching.'],
+      ['list-vs-tuple', 'List vs Tuple', 'Mutable vs immutable; tuples are hashable and lighter.'],
+      ['py-memory-interview', 'How Python Stores Variables', 'Names → objects; everything is an object.'],
+      ['py-compiled-interpreted', 'Is Python Compiled or Interpreted?', 'Compiled to bytecode (.pyc), run by the CPython VM.'],
+      ['py-pass-by', 'Pass by Object Reference', 'Functions get references; mutation is visible, rebinding isn’t.'],
+      ['py-dsa', 'DSA in Python', 'Use list as stack, deque as queue, heapq as heap, dict as hash map.']
+    ] }
+  ]
+};

@@ -1,0 +1,117 @@
+// Skill track: JavaScript
+export default {
+  id: 'js', name: 'JavaScript', short: 'JavaScript', order: 5, icon: '🟨', color: '#f59e0b', lang: 'javascript',
+  desc: 'Core JS to ES2025: scope, closures, prototypes, the event loop, async, DOM, modules, TypeScript basics and polyfills.',
+  units: [
+    { name: 'Basics', terms: [
+      ['what-is-js', 'What is JavaScript', 'The programming language of the web — runs in browsers and on servers (Node.js).'],
+      ['js-engines', 'JS Engines & Runtimes', 'V8, SpiderMonkey, JavaScriptCore; Node.js, Deno, Bun.'],
+      ['var-let-const', 'var, let & const', 'Function-scoped vs block-scoped; const can’t be reassigned.'],
+      ['data-types', 'Data Types', '7 primitives (string, number, bigint, boolean, undefined, null, symbol) + object.'],
+      ['typeof', 'typeof & Type Checking', 'typeof null === "object" quirk; Array.isArray.'],
+      ['type-coercion', 'Type Coercion', 'Automatic conversion: "5" + 1 = "51", "5" - 1 = 4.'],
+      ['equality', '== vs ===', 'Loose equality coerces types; strict doesn’t — prefer ===.'],
+      ['truthy-falsy', 'Truthy & Falsy', 'Falsy: false, 0, -0, 0n, "", null, undefined, NaN.'],
+      ['operators', 'Operators', 'Arithmetic, comparison, logical, assignment, ternary, spread.'],
+      ['nullish', 'Optional Chaining ?. & Nullish Coalescing ??', 'Safe property access and defaults only for null/undefined.'],
+      ['template-literals', 'Template Literals', '`Hello ${name}` with multi-line strings.'],
+      ['control-flow-js', 'if/else, switch', 'Branching logic.'],
+      ['loops', 'Loops: for, while, for…of, for…in', 'for…of iterates values; for…in iterates keys.'],
+      ['functions-js', 'Function Declarations vs Expressions', 'Declarations are hoisted; expressions are not.'],
+      ['arrow-functions', 'Arrow Functions', 'Short syntax; no own this/arguments.'],
+      ['default-rest', 'Default & Rest Parameters', 'function f(a = 1, ...rest).']
+    ] },
+    { name: 'Core Concepts', terms: [
+      ['scope', 'Scope (Global, Function, Block)', 'Where variables are accessible.'],
+      ['hoisting', 'Hoisting', 'Declarations move to the top of scope; let/const stay in the TDZ.'],
+      ['tdz', 'Temporal Dead Zone', 'Using let/const before declaration throws ReferenceError.'],
+      ['closures', 'Closures', 'A function remembers variables from where it was created.'],
+      ['this', 'this Keyword', 'Depends on how a function is called (object, global, new, arrow).'],
+      ['call-apply-bind', 'call, apply & bind', 'Set this explicitly; bind returns a new function.'],
+      ['prototypes', 'Prototypes & Prototype Chain', 'Objects inherit from other objects via [[Prototype]].'],
+      ['classes-js', 'Classes, extends & super', 'Syntax over prototypes; private #fields; static blocks.'],
+      ['execution-context', 'Execution Context & Call Stack', 'How JS creates and runs function contexts.'],
+      ['event-loop', 'Event Loop', 'Single thread runs the call stack, then microtasks, then macrotasks.'],
+      ['micro-macro', 'Microtasks vs Macrotasks', 'Promises (micro) run before setTimeout (macro).'],
+      ['currying', 'Currying', 'f(a)(b)(c) — transform a multi-argument function into a chain.'],
+      ['hof', 'Higher-order Functions', 'Functions that take or return functions.'],
+      ['pure-functions', 'Pure Functions & Immutability', 'Same input → same output, no side effects.'],
+      ['iife', 'IIFE', 'Immediately invoked function expression.'],
+      ['strict-mode', 'Strict Mode', '"use strict" catches silent errors.'],
+      ['garbage-collection-js', 'Memory & Garbage Collection', 'Mark-and-sweep; leaks via globals, timers, closures.']
+    ] },
+    { name: 'Objects, Arrays & Data', terms: [
+      ['objects', 'Objects', 'Key–value collections; property access, shorthand, computed keys.'],
+      ['destructuring', 'Destructuring', 'const { a, b } = obj; const [x, y] = arr;'],
+      ['spread-rest', 'Spread & Rest', '... expands or collects values.'],
+      ['array-methods', 'Array Methods', 'map, filter, reduce, find, some, every, includes, flat, flatMap.'],
+      ['immutable-array-methods', 'Non-mutating Methods (ES2023)', 'toSorted, toReversed, toSpliced, with, at, findLast.'],
+      ['reduce', 'reduce() in Depth', 'Accumulate an array into a single value.'],
+      ['map-set', 'Map & Set', 'Key–value maps with any keys; unique-value sets.'],
+      ['set-methods', 'New Set Methods (ES2025)', 'union, intersection, difference, isSubsetOf.'],
+      ['weak', 'WeakMap, WeakSet, WeakRef', 'Weakly held references that don’t block GC.'],
+      ['symbol-bigint', 'Symbol & BigInt', 'Unique keys; arbitrary-precision integers (10n).'],
+      ['json', 'JSON', 'JSON.stringify and JSON.parse.'],
+      ['structured-clone', 'structuredClone & Deep Copy', 'Deep-copy objects natively.'],
+      ['group-by', 'Object.groupBy & Map.groupBy (ES2024)', 'Group array items by a key.'],
+      ['iterators-generators', 'Iterators & Generators', 'Custom iteration with function* and yield.'],
+      ['iterator-helpers', 'Iterator Helpers (ES2025)', '.map/.filter/.take directly on iterators.']
+    ] },
+    { name: 'Asynchronous JS', terms: [
+      ['callbacks', 'Callbacks & Callback Hell', 'Functions run later; nesting becomes hard to read.'],
+      ['promises', 'Promises', 'Objects representing a future value: pending, fulfilled, rejected.'],
+      ['promise-combinators', 'Promise.all, allSettled, any, race', 'Run promises in parallel with different rules.'],
+      ['promise-new', 'Promise.withResolvers & Promise.try', 'Newer helpers (ES2024/ES2025).'],
+      ['async-await', 'async / await', 'Write async code that reads like sync code.'],
+      ['error-handling-async', 'Error Handling in Async Code', 'try/catch with await; .catch on promises.'],
+      ['fetch', 'fetch API', 'HTTP requests from the browser/Node.', 'net.fetch'],
+      ['abort-controller', 'AbortController', 'Cancel fetch requests and timers.'],
+      ['timers', 'setTimeout & setInterval', 'Schedule code to run later or repeatedly.'],
+      ['top-level-await', 'Top-level await', 'await outside async functions in modules.']
+    ] },
+    { name: 'DOM & Browser', terms: [
+      ['dom', 'DOM (Document Object Model)', 'Tree of nodes representing the page.'],
+      ['dom-selection', 'Selecting Elements', 'querySelector, querySelectorAll, getElementById.'],
+      ['dom-manipulation', 'Manipulating the DOM', 'textContent, classList, createElement, append, remove.'],
+      ['events', 'Events & addEventListener', 'Respond to clicks, input, submit, keydown.'],
+      ['event-propagation', 'Bubbling, Capturing & stopPropagation', 'Events travel down then up the tree.'],
+      ['event-delegation', 'Event Delegation', 'One listener on a parent handles events for children.'],
+      ['web-storage', 'localStorage, sessionStorage & Cookies', 'Storing small data in the browser.'],
+      ['indexeddb', 'IndexedDB', 'Browser database for larger structured data.'],
+      ['observers', 'Intersection, Mutation & Resize Observers', 'Watch visibility, DOM changes and size.'],
+      ['web-workers', 'Web Workers', 'Run JS on background threads.'],
+      ['bom', 'BOM: window, location, history, navigator', 'Browser objects beyond the document.']
+    ] },
+    { name: 'Modules, Patterns & Errors', terms: [
+      ['modules', 'ES Modules (import/export)', 'Split code into files with named and default exports.'],
+      ['commonjs', 'CommonJS (require)', 'Node’s older module system.'],
+      ['dynamic-import', 'Dynamic import()', 'Load modules on demand for code splitting.'],
+      ['error-handling', 'Errors: try/catch/finally & Custom Errors', 'Throw and handle errors; Error.cause.'],
+      ['debounce', 'Debounce', 'Run a function only after calls stop for a delay.'],
+      ['throttle', 'Throttle', 'Run a function at most once per interval.'],
+      ['memoize-js', 'Memoization', 'Cache results of expensive function calls.'],
+      ['deep-clone', 'Deep Clone Implementation', 'Recursive copy handling arrays/objects/cycles.'],
+      ['polyfills', 'Polyfills: map, filter, reduce, bind, Promise.all', 'Implement built-ins yourself — popular interview task.'],
+      ['event-emitter', 'Event Emitter (Pub/Sub)', 'on, off, emit implementation.'],
+      ['regex-js', 'Regular Expressions in JS', '/pattern/flags; test, match, replace; v flag.'],
+      ['temporal', 'Temporal API', 'Modern date/time API replacing Date (rolling out in browsers).'],
+      ['decorators-js', 'Decorators (Proposal)', '@decorator syntax for classes (Stage 3).']
+    ] },
+    { name: 'TypeScript Basics', terms: [
+      ['ts-intro', 'What is TypeScript', 'JavaScript with static types that compile to JS.'],
+      ['ts-types', 'Basic Types & Type Annotations', 'string, number, boolean, arrays, tuples, any, unknown, never.'],
+      ['ts-interfaces', 'Interfaces & Type Aliases', 'Describe object shapes.'],
+      ['ts-unions', 'Union, Intersection & Literal Types', 'A | B, A & B, "on" | "off".'],
+      ['ts-generics', 'Generics', 'Reusable typed functions: function id<T>(x: T): T.'],
+      ['ts-narrowing', 'Type Narrowing & Guards', 'typeof, in, instanceof, discriminated unions.'],
+      ['ts-utility', 'Utility Types', 'Partial, Required, Pick, Omit, Record, ReturnType.'],
+      ['ts-config', 'tsconfig & strict Mode', 'Compiler options; enable strict.']
+    ] },
+    { name: 'Node.js & Interview', terms: [
+      ['node', 'Node.js Basics', 'Run JS on servers; npm packages; fs, path, http modules.'],
+      ['express', 'Express.js', 'Minimal web framework for APIs.'],
+      ['js-output-questions', 'Tricky Output Questions', 'Hoisting, closures in loops, this, event-loop order.'],
+      ['js-interview-concepts', 'Top JS Interview Concepts', 'Closures, prototypes, event loop, promises, this.']
+    ] }
+  ]
+};

@@ -1,0 +1,21 @@
+{
+  "name": "StudyEdge — B.Tech CSE (AI)",
+  "short_name": "StudyEdge",
+  "description": "8 semesters + 15 skill tracks with interview Q&A, coding questions, mock tests and an AI Mentor.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0f1220",
+  "theme_color": "#0f1220",
+  "categories": ["education", "productivity"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Mock test", "url": "/#/mock" },
+    { "name": "AI Mentor", "url": "/#/mentor" }
+  ]
+}
