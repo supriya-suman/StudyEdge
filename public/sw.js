@@ -1,6 +1,6 @@
 // sw.js — offline support. App shell + assets are cached as they are used.
 // API calls (/api/*) always go to the network so AI answers and news stay fresh.
-const CACHE = 'studyedge-v1';
+const CACHE = 'studyedge-v2';
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(['/', '/index.html', '/manifest.webmanifest'])));
@@ -24,6 +24,14 @@ self.addEventListener('fetch', (e) => {
       caches.open(CACHE).then((c) => c.put('/index.html', res.clone()));
       return res;
     }).catch(() => caches.match('/index.html')));
+    return;
+  }
+  // lesson files: show cached copy instantly, refresh it in the background
+  if (url.pathname.startsWith('/lessons/')) {
+    e.respondWith(caches.open(CACHE).then((c) => c.match(req).then((hit) => {
+      const fresh = fetch(req).then((res) => { if (res.ok) c.put(req, res.clone()); return res; }).catch(() => hit);
+      return hit || fresh;
+    })));
     return;
   }
   // static files: cache first, then network (and store for next time)

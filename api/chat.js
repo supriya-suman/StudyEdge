@@ -1,39 +1,24 @@
-// api/chat.js — Vercel serverless function that talks to Google Gemini.
-// The API key stays on the server (env var GEMINI_API_KEY); the phone never sees it.
+// api/chat.js — Vercel serverless function for the AI features (Gemini, with Groq as backup).
+// Keys stay on the server (env vars GEMINI_API_KEY / GROQ_API_KEY); the phone never sees them.
 //
 // POST body: { mode, ... }
 //   mode "chat"   -> { question, history, catalog }      returns { answer, termIds }
 //   mode "lesson" -> { term: {id,name,one,course,lang} } returns { lesson }
 //   mode "mock"   -> { topics, pattern, level, count }   returns { questions }
 
-const MODELS = [process.env.GEMINI_MODEL, 'gemini-flash-latest', 'gemini-2.5-flash'].filter(Boolean);
+import { lessonSystem, singlePrompt, normalizeLesson, parseJSON } from '../lib/lessonPrompt.js';
 
-// Ask Gemini; if a model name is retired (404), try the next one in the list.
-async function gemini(key, system, contents, json) {
-  let lastErr;
-  for (const model of MODELS) {
-    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: system }] },
-        contents,
-        generationConfig: { temperature: 0.4, maxOutputTokens: 8192, ...(json ? { responseMimeType: 'application/json' } : {}) }
-      })
-    });
-    if (r.status === 404) { lastErr = new Error('model ' + model + ' not found'); continue; }
-    const data = await r.json();
-    if (!r.ok) throw new Error(data?.error?.message || 'Gemini error ' + r.status);
-    const text = data?.candidates?.[0]?.content?.parts?.map((p) => p.text || '').join('') || '';
-    return { text, model };
-  }
-  throw lastErr || new Error('No Gemini model available');
-}
+import { askAny } from '../lib/llm.js';
 
-// Gemini sometimes wraps JSON in ``` fences — strip them before parsing.
-function parseJSON(text) {
-  const clean = text.trim().replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/, '');
-  return JSON.parse(clean);
+// Ask Gemini first, fall back to Groq when Gemini is busy/limited (whichever keys are set in Vercel).
+// contents: [{ role, parts:[{text}] }] (Gemini style) -> converted for both providers.
+async function gemini(_key, system, contents, json) {
+  return askAny({
+    geminiKey: process.env.GEMINI_API_KEY, groqKey: process.env.GROQ_API_KEY,
+    geminiModel: process.env.GEMINI_MODEL, groqModel: process.env.GROQ_MODEL,
+    system, json, maxTokens: 8192,
+    messages: contents.map((c) => ({ role: c.role === 'user' ? 'user' : 'assistant', text: c.parts.map((p) => p.text).join('') }))
+  });
 }
 
 const STUDENT = `The learner is Supriya, a B.Tech CSE (Artificial Intelligence) student at Gurugram University (India),
@@ -41,7 +26,7 @@ currently in Semester 1, preparing for university exams and for campus placement
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'POST only' });
-  const key = process.env.GEMINI_API_KEY;
+  const key = process.env.GEMINI_API_KEY || process.env.GROQ_API_KEY;
   if (!key) return res.status(503).json({ error: 'NO_KEY' }); // the app falls back to offline mode
 
   const body = req.body || {};
@@ -76,20 +61,10 @@ ${catalogText}`;
     if (mode === 'lesson') {
       const t = body.term || {};
       if (!t.name) return res.status(400).json({ error: 'term required' });
-      const system = `You write study cards for an exam + interview prep app. ${STUDENT}
-Return ONLY JSON with this exact shape:
-{
- "explain": "3-6 short paragraphs or bullet lines (use - for bullets, **bold**, \`code\`) explaining what it is, how it works, why it matters, common mistakes",
- "syntax": "the core syntax / formula / definition in a few lines (empty string if not applicable)",
- "code": { "lang": "c|cpp|python|javascript|java|sql|r|html|css|bash|text", "src": "a complete runnable example with a comment on every important line, or a worked numerical example for theory topics", "out": "expected output" },
- "theory": [ ["interview or viva question", "clear answer"] , ... 6 to 8 items, mix of easy and tricky ],
- "coding": [ ["practice problem statement", "Easy|Medium|Hard", "full solution (code or worked steps)"], ... 3 to 5 items ]
-}
-Pick the most natural language for the code: the course language if given, otherwise C for Sem 1 programming, Python for AI/ML/data topics.
-For non-programming subjects (maths, physics, electronics, English, environment, management) use worked examples or numericals in "code" with lang "text", and exam-style problems in "coding".`;
-      const prompt = `Term: ${t.name}\nOne-liner: ${t.one || ''}\nCourse: ${t.course || ''}\nPreferred language: ${t.lang || 'auto'}`;
-      const { text, model } = await gemini(key, system, [{ role: 'user', parts: [{ text: prompt }] }], true);
-      const lesson = parseJSON(text);
+      const { text, model } = await gemini(key, lessonSystem(), [{ role: 'user', parts: [{ text: singlePrompt(t) }] }], true);
+      const raw = parseJSON(text);
+      const lesson = normalizeLesson(raw.lessons ? Object.values(raw.lessons)[0] : raw);
+      if (!lesson) throw new Error('Incomplete lesson, please retry');
       return res.status(200).json({ lesson, model });
     }
 

@@ -1,7 +1,7 @@
 // App.jsx — routes + the 5 main tabs (Learn, Mock, AI Mentor, News, Progress)
 import { useEffect, useState } from 'react';
 import { useRoute, useSettings, applySettings } from './lib.js';
-import { Home, Semester, Course, Term, NotFound } from './components/Learn.jsx';
+import { Home, Semester, Course, Term, Roadmap, Revise, NotFound } from './components/Learn.jsx';
 import Mock from './components/Mock.jsx';
 import Mentor from './components/Mentor.jsx';
 import News from './components/News.jsx';
@@ -53,13 +53,15 @@ export default function App() {
     case 'sem': page = <Semester n={id} />; break;
     case 'c': page = <Course key={id} id={id} />; break;
     case 't': page = <Term key={id} id={id} />; break;
+    case 'roadmap': page = <Roadmap key={id || 'all'} id={id} />; break;
+    case 'revise': page = <Revise key={params.toString()} params={params} />; break;
     case 'mock': page = <Mock key={params.toString()} params={params} />; break;
     case 'mentor': page = <Mentor key={params.get('q') || 'm'} params={params} />; break;
     case 'news': page = <News />; break;
     case 'progress': page = <Progress />; break;
     default: page = <NotFound />;
   }
-  const active = ['sem', 'c', 't'].includes(root) ? '' : root || '';
+  const active = ['sem', 'c', 't', 'roadmap', 'revise'].includes(root) ? '' : root || '';
 
   return (
     <div className="shell">

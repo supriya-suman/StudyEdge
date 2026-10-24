@@ -51,7 +51,7 @@ An installable app (phone + laptop) covering Supriya's complete **Gurugram Unive
 
 1. vercel.com → sign up/log in **with GitHub (supriya-suman)**.
 2. **Add New → Project** → import `studyedge`. Framework: **Vite** (auto-detected). Build `npm run build`, output `dist`.
-3. **Environment Variables:** add `GEMINI_API_KEY` = your key. (Optional `GEMINI_MODEL` if Google renames models; default tries `gemini-flash-latest`, then `gemini-2.5-flash`.)
+3. **Environment Variables:** add `GEMINI_API_KEY` = your key, and optionally `GROQ_API_KEY` (used automatically when Gemini is busy). (Optional `GEMINI_MODEL` if Google renames models; default tries `gemini-flash-latest`, then `gemini-2.5-flash`.)
 4. **Deploy.** You get a URL like `https://studyedge-xxxx.vercel.app`. Every future `git push` redeploys automatically.
 
 ## 4. Install on phone and laptop
@@ -61,7 +61,28 @@ An installable app (phone + laptop) covering Supriya's complete **Gurugram Unive
 - **Windows/Mac (Chrome or Edge):** click the install icon in the address bar (or ⋮ → *Install StudyEdge*). It opens in its own window like a desktop app.
 - Works offline for all written content after the first visit. Progress is stored per device — use **Progress → Export / Import** to move it.
 
-## 5. Optional: Play Store / App Store
+## 5. Pre-write every lesson (so nothing waits)
+
+Every term card has 5 tabs — **Learn** (explanation, how it works, key points, common mistakes), **Code**, **Interview**, **Code Q&A**, **Roadmap**. To have all of them ready instantly, generate them once on the laptop:
+
+```bash
+npm run lessons
+```
+- Needs `.env.local` with `GEMINI_API_KEY=...` and/or `GROQ_API_KEY=...` (Groq keys: console.groq.com/keys). With both, it runs them side by side — when one is busy or rate-limited the other keeps going.
+- Order: Semester 1 → skill tracks → Semesters 2–8. Progress prints as it goes.
+- Safe to stop with **Ctrl + C** and run again — it continues where it stopped.
+- On Google’s free tier there is a daily limit; when it’s reached the script stops and saves. Run it again the next day (or enable billing in AI Studio to finish in one go).
+- Only Semester 1: `npm run lessons -- --sem 1` · one course: `npm run lessons -- --only c-prog`
+
+Then publish the lessons:
+```bash
+git add .
+git commit -m "Add generated lessons"
+git push
+```
+Any term not generated yet is written automatically the first time it’s opened (no button), then saved on that device.
+
+## 6. Optional: Play Store / App Store
 
 - **Play Store:** https://www.pwabuilder.com → enter the Vercel URL → Android package (TWA) → upload the `.aab` in Play Console (one-time $25 fee); put the generated `assetlinks.json` in `public/.well-known/`.
 - **App Store:** wrap with Capacitor (`npm i @capacitor/core @capacitor/cli @capacitor/ios`, `npx cap init`, `npx cap add ios`, `webDir: "dist"`), build in Xcode on a Mac (Apple Developer account needed).
